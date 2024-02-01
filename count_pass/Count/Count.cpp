@@ -6,18 +6,17 @@
 using namespace llvm;
 
 namespace {
-  struct Scanner : public ModulePass {
+  struct Count : public ModulePass {
     static char ID;
-        
-    Scanner() : ModulePass(ID) {}
+    Count() : ModulePass(ID) {}
 
     bool runOnModule(Module &M) override {
       int num_f = 0;
       int num_bb = 0;
 
-      for (auto &F : M) {
+      for (Function &F : M) {
         num_f++;
-        for (auto &BB : F) {
+        for (BasicBlock &BB : F) {
           num_bb++;
         }
       }
@@ -29,5 +28,5 @@ namespace {
   };
 }
 
-char Scanner::ID = 0;
-static RegisterPass<Scanner> X("scanner", "Scanner");
+char Count::ID = 0;
+static RegisterPass<Count> X("Count", "Count Functions and Basic Blocks Pass");

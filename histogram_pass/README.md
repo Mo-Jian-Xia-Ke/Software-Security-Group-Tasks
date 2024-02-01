@@ -1,20 +1,22 @@
-# Scanner Pass
+# Histogram Pass
 
-Steps to build and run the scanner pass:
-1. Put the whole "Scanner" folder under the path: llvm-project/llvm/lib
+Steps to build and run the Histogram pass:
+1. Put the whole "Histogram" folder under the path: llvm-project/llvm/lib
 
 2. Add the following line into lib/CMakeLists.txt:  
-  `add_subdirectory(Scanner)`
+  `add_subdirectory(Histogram)`
 
 3. Compile the file with a simple "gmake" command from the top level of your build directory.  
-   Now we should get a new file "lib/LLVMScanner.so".
+   Now we should get a new file "lib/LLVMHistogram.so".
 
 4. Assume we now have the LLVM bitcode version of the target program, "program.bc".  
    If not, create one using the following command:  
   `clang -c -emit-llvm program.c`
 
 5. Now we can run our pass on the given program:  
-  `opt -load lib/LLVMScanner.so -scanner < program.bc > /dev/null`
+  `opt -load lib/LLVMHistogram.so -histogram < program.bc > /dev/null`
+
+6. The generated histogram will be displayed in forms of numbers on the terminal, the PDF version has not been finished yet.
 
 (p.s. The required clang and llvm version is too high for my windows WSL, 
  while lab machine reports "disk quota exceeded" when cloning the llvm-project,
